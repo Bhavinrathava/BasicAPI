@@ -1,31 +1,31 @@
 package com.bhavinr.SampleAPIAssignment.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.sun.istack.NotNull;
+
+import javax.persistence.*;
 
 @Entity
 public class Employee {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @NotNull
     private Long id;
-    private String FirstName;
-    private String LastName;
-
+    private String firstname;
+    private String lastname;
+    private String contactnumber;
 
     public Employee(Long id,String firstname, String lastname, String contactNumber)
     {
-       this.id=id;
-       this.FirstName=firstname;
-       this.LastName=lastname;
-
+        this.id=id;
+       this.firstname =firstname;
+       this.lastname =lastname;
+       this.contactnumber =contactNumber;
     }
 
     public Employee() {
 
     }
-
 
     public Long getId() {
         return id;
@@ -35,20 +35,27 @@ public class Employee {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return FirstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        FirstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLastName() {
-        return LastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        LastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
+    public String getcontactnumber() {
+        return contactnumber;
+    }
+
+    public void setcontactnumber(String contactnumber) {
+        this.contactnumber = contactnumber;
+    }
 }

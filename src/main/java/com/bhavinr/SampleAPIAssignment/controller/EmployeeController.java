@@ -5,6 +5,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.bhavinr.SampleAPIAssignment.repository.EmployeeRepository;
+import org.springframework.web.client.ResourceAccessException;
 
 import java.util.List;
 
@@ -26,11 +27,20 @@ public class EmployeeController {
     @GetMapping("/employee/{id}")
     public Employee getUserById(@PathVariable("id") Long id)
     {
+        /*
         Employee empl=repository.getOne(id);
         return empl;
+        */
+
+       if(repository.findById(id).isPresent())
+       {
+           return repository.findById(id).get();
+       }
+       else throw new ResourceAccessException("The User you queried for doesn't exist. ID:"+id);
+
     }
 
-    @RequestMapping (value="{id}", method = RequestMethod.PUT)
+    @PutMapping("/employee/{id}")
     public Employee EditEmployee (@RequestBody Employee employee, @PathVariable("id") Long id)
     {
         Employee currentEmpl=repository.getOne(id);
@@ -38,13 +48,20 @@ public class EmployeeController {
         return repository.saveAndFlush(currentEmpl);
     }
 
-    @PostMapping("/employee")
-    public Employee createEmployee (@RequestBody Employee employee)
+    @PostMapping("/employee/{id}")
+    public Employee createEmployee (@PathVariable(value = "id") Long id, @RequestBody Employee employee)
     {
-        return repository.saveAndFlush(employee);
+        Employee employeeNew=new Employee(id,employee.getFirstname(),employee.getLastname(), employee.getcontactnumber());
+        System.out.println("GIVEN DETAILS :"+employee.getId());
+        System.out.println("NEW EMPLOYEE: "+employeeNew.getId());
+        System.out.println("NEW EMPLOYEE: "+employeeNew.getFirstname());
+        System.out.println("NEW EMPLOYEE: "+employeeNew.getLastname());
+        System.out.println("NEW EMPLOYEE: "+employeeNew.getcontactnumber());
+        return repository.saveAndFlush(employeeNew);
+
     }
 
-    @RequestMapping (value ="{id}", method = RequestMethod.DELETE)
+    @DeleteMapping("/employee/{id}")
     public void deleteEmployee (@PathVariable("id") Long id)
     {
         repository.deleteById(id);

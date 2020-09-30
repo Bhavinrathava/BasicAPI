@@ -1,12 +1,13 @@
 DROP TABLE IF EXISTS Employee;
  
 CREATE TABLE Employee (
-  id INT AUTO_INCREMENT  PRIMARY KEY,
-  FirstName VARCHAR(250) NOT NULL,
-  LastName VARCHAR(250) NOT NULL
+  ID bigint AUTO_INCREMENT PRIMARY KEY,
+  FIRSTNAME VARCHAR(250) NOT NULL,
+  LASTNAME VARCHAR(250) NOT NULL,
+  CONTACTNUMBER VARCHAR(250) NOT NULL
 );
  
-INSERT INTO Employee (FirstName, LastName) VALUES
-  ('Aliko', 'Dangote'),
-  ('Bill', 'Gates'),
-  ('Folrunsho', 'Alakija');
+INSERT INTO Employee (ID,FIRSTNAME ,LASTNAME, CONTACTNUMBER) VALUES
+  (1,'Aliko', 'Dangote','9812434456'),
+  (2,'Bill', 'Gates','9778645656'),
+  (3,'Folrunsho', 'Alakija','9238475639');
